@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rashmi Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body class="bg-white text-[#1A202C] font-sans pt-20">
+
+    <!-- Fixed Navbar -->
+    <header class="fixed top-0 left-0 right-0 bg-white z-50 flex items-center justify-between px-10 py-4 border-b shadow-sm">
+      <h1 class="font-bold text-lg">Rashmi Portfolio</h1>
+      <nav class="space-x-6 text-sm">
+        <a href="#hero" class="hover:underline">Home</a>
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#projects" class="hover:underline">Projects</a>
+        <a href="#skills" class="hover:underline">Skills</a>
+        <a href="#achievements" class="hover:underline">Achievements</a>
+        <a href="#contact" class="hover:underline">Contact</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="flex flex-col md:flex-row items-center justify-between px-10 py-20">
+      <div class="max-w-xl">
+        <h2 class="text-4xl font-extrabold mb-3">Rashmi Ranjan Sahu</h2>
+        <p class="text-lg font-medium text-gray-600 mb-2">
+          B.Tech CSE (AI & ML) Student | Tech Enthusiast | Project Builder
+        </p>
+        <p class="text-sm text-gray-600 mb-6">
+          Passionate about Artificial Intelligence and Machine Learning,
+          currently pursuing B.Tech at NIST University, Odisha.
+        </p>
+        <div class="flex gap-3">
+          <button class="bg-black text-white px-4 py-2 text-sm rounded-md">
+            <i class="fa fa-download mr-2"></i>Download Resume
+          </button>
+          <button class="border px-4 py-2 text-sm rounded-md">
+            <i class="fa fa-comments mr-2"></i>Let’s Connect
+          </button>
+        </div>
+      </div>
+<div class="mt-10 md:mt-0">
+  <div class="w-60 h-60 rounded-full border-8 border-gray-300 shadow-xl overflow-hidden flex items-center justify-center">
+    <img src="images/kanha.jpg" alt="Profile Photo" class="w-full h-full object-cover rounded-full" />
+  </div>
+</div>
+
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-gray-50 px-10 py-20">
+      <h2 class="text-3xl font-bold mb-2">About Me</h2>
+      <p class="text-gray-600 mb-10">Get to know more about my background, education, and passion for technology</p>
+
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="space-y-6 w-full md:w-1/2">
+          <div class="bg-white shadow p-5 rounded-md">
+            <h3 class="font-semibold mb-1">🎓 Education</h3>
+            <p><b>B.Tech Computer Science & Engineering</b><br />
+              Specialization: Artificial Intelligence & Machine Learning<br />
+              NIST University, Odisha<br />
+              2nd Year (Batch 2023–2027)</p>
+          </div>
+
+          <div class="bg-white shadow p-5 rounded-md">
+            <h3 class="font-semibold mb-1">📍 Location & Interests</h3>
+            <p>
+              Based in Odisha, India. When I'm not coding, I enjoy exploring new technologies,
+              reading about AI advancements, and working on personal projects.
+            </p>
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/2">
+          <p class="text-gray-700 leading-relaxed">
+            I am a passionate B.Tech student specializing in Artificial Intelligence and Machine Learning at
+            NIST University, Odisha. Currently in my second year, I am deeply committed to exploring the frontiers
+            of AI/ML technology and its real-world applications.
+            <br /><br />
+            My journey in technology is driven by curiosity and a desire to solve complex problems through
+            innovative solutions. I actively work on various projects ranging from computer vision to web
+            development, constantly learning and adapting to new technologies.
+            <br /><br />
+            I believe in the power of continuous learning and collaboration. My goal is to contribute to the AI/ML
+            community while building solutions that can make a positive impact on society.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="px-10 py-20">
+      <h2 class="text-3xl font-bold mb-2">Projects</h2>
+      <p class="text-gray-600 mb-6">A showcase of my latest work in AI, ML, and web development</p>
+
+      <div class="flex gap-3 mb-6">
+        <button class="px-4 py-1 border rounded-md bg-black text-white text-sm">All</button>
+        <button class="px-4 py-1 border rounded-md text-sm">AI</button>
+        <button class="px-4 py-1 border rounded-md text-sm">ML</button>
+        <button class="px-4 py-1 border rounded-md text-sm">Web</button>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Repeat this card for each project -->
+        <div class="bg-white border rounded-md p-5 shadow-sm">
+          <p class="text-xs bg-gray-200 inline-block px-2 py-0.5 rounded mb-2">AI</p>
+          <h3 class="font-semibold">AI-Powered Image Classification</h3>
+          <p class="text-sm text-gray-500">Deep learning model for multi-class image classification using CNN architecture</p>
+          <div class="flex flex-wrap gap-2 mt-2 text-xs">
+            <span class="bg-gray-100 px-2 py-1 rounded">Python</span>
+            <span class="bg-gray-100 px-2 py-1 rounded">TensorFlow</span>
+            <span class="bg-gray-100 px-2 py-1 rounded">Keras</span>
+            <span class="bg-gray-100 px-2 py-1 rounded">OpenCV</span>
+          </div>
+          <div class="flex gap-2 mt-3">
+            <button class="px-3 py-1 border rounded text-sm">Code</button>
+            <button class="px-3 py-1 bg-black text-white rounded text-sm">Demo</button>
+          </div>
+        </div>
+
+        <!-- Add other 5 project cards here similarly -->
+        <!-- Smart Campus Management System, Predictive Analytics Dashboard, Voice Assistant, Real-time Chat App, Computer Vision Object Detector -->
+      </div>
+    </section>
+
+<!-- Skills Section -->
+<section id="skills" class="bg-[#f9fafb] px-10 py-20">
+  <h2 class="text-3xl font-bold mb-2 text-center">Skills</h2>
+  <p class="text-gray-600 mb-10 text-center">
+    My technical expertise and proficiency across various technologies
+  </p>
+  <div class="grid md:grid-cols-3 gap-6">
+    <!-- Programming Languages -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="font-semibold text-lg mb-4">💻 Programming Languages</h3>
+      <div class="space-y-4 text-sm">
+        <div>
+          <div class="flex justify-between">
+            <span>Python</span><span>90%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[90%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>C++</span><span>85%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[85%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>JavaScript</span><span>80%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[80%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>C</span><span>75%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[75%]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technologies -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="font-semibold text-lg mb-4">⚙️ Technologies</h3>
+      <div class="space-y-4 text-sm">
+        <div>
+          <div class="flex justify-between">
+            <span>TensorFlow</span><span>85%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[85%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>React</span><span>80%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[80%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>Flask</span><span>85%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[85%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>Firebase</span><span>70%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[70%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>MongoDB</span><span>75%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[75%]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools -->
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="font-semibold text-lg mb-4">🧰 Tools</h3>
+      <div class="space-y-4 text-sm">
+        <div>
+          <div class="flex justify-between">
+            <span>Git</span><span>85%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[85%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>VS Code</span><span>95%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[95%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>Google Colab</span><span>90%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[90%]"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <span>Jupyter Notebook</span><span>90%</span>
+          </div>
+          <div class="h-2 bg-gray-200 rounded">
+            <div class="h-2 bg-black rounded w-[90%]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Achievements & Certifications Section -->
+<section id="achievements" class="bg-white px-10 py-20">
+  <h2 class="text-3xl font-bold mb-2 text-center">Achievements & Certifications</h2>
+  <p class="text-gray-600 mb-10 text-center">
+    Recognitions, certifications, and milestones in my learning journey
+  </p>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <!-- Card 1 -->
+    <div class="border rounded-lg p-5 bg-white shadow-sm">
+      <h3 class="font-semibold mb-1">Machine Learning Specialization</h3>
+      <p class="text-sm text-gray-500">Coursera - Stanford University</p>
+      <span class="text-xs text-white bg-gray-800 px-2 py-1 rounded-full mt-2 inline-block">course</span>
+      <p class="text-sm text-gray-500 mt-1">2024</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="border rounded-lg p-5 bg-white shadow-sm">
+      <h3 class="font-semibold mb-1">Smart India Hackathon Finalist</h3>
+      <p class="text-sm text-gray-500">Government of India</p>
+      <span class="text-xs text-white bg-red-500 px-2 py-1 rounded-full mt-2 inline-block">competition</span>
+      <p class="text-sm text-gray-500 mt-1">2024</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="border rounded-lg p-5 bg-white shadow-sm">
+      <h3 class="font-semibold mb-1">Deep Learning with TensorFlow</h3>
+      <p class="text-sm text-gray-500">NPTEL - IIT Madras</p>
+      <span class="text-xs text-white bg-gray-300 text-black px-2 py-1 rounded-full mt-2 inline-block">certificate</span>
+      <p class="text-sm text-gray-500 mt-1">2024</p>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="border rounded-lg p-5 bg-white shadow-sm">
+      <h3 class="font-semibold mb-1">Best Project Award</h3>
+      <p class="text-sm text-gray-500">NIST University Tech Fest</p>
+      <span class="text-xs text-gray-800 bg-gray-100 px-2 py-1 rounded-full mt-2 inline-block">award</span>
+      <p class="text-sm text-gray-500 mt-1">2024</p>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="border rounded-lg p-5 bg-white shadow-sm">
+      <h3 class="font-semibold mb-1">Python for Data Science</h3>
+      <p class="text-sm text-gray-500">IBM - Coursera</p>
+      <span class="text-xs text-white bg-gray-300 text-black px-2 py-1 rounded-full mt-2 inline-block">certificate</span>
+      <p class="text-sm text-gray-500 mt-1">2023</p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-50 px-10 py-20">
+      <h2 class="text-3xl font-bold mb-6">Get In Touch</h2>
+      <p class="text-gray-600 mb-10">Let’s connect and discuss opportunities, projects, or just have a tech conversation</p>
+
+      <div class="flex flex-col md:flex-row gap-10">
+        <div class="space-y-4 md:w-1/2">
+          <p><i class="fa fa-envelope mr-2"></i> rashmiranjanbam@gmail.com</p>
+          <p><i class="fa fa-phone mr-2"></i> +91 7894839389</p>
+          <p><i class="fa fa-map-marker-alt mr-2"></i> Odisha, India</p>
+          <div class="flex gap-3 text-xl mt-4">
+            <i class="fab fa-linkedin"></i>
+            <i class="fab fa-github"></i>
+            <i class="fas fa-globe"></i>
+          </div>
+        </div>
+        <form class="space-y-4 md:w-1/2">
+          <input type="text" placeholder="Your name" class="w-full border px-4 py-2 rounded-md" />
+          <input type="email" placeholder="your@email.com" class="w-full border px-4 py-2 rounded-md" />
+          <textarea placeholder="Your message..." class="w-full border px-4 py-2 rounded-md h-32"></textarea>
+          <button class="bg-black text-white px-4 py-2 rounded-md">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs py-6 border-t">
+      © 2025 Rashmi Ranjan Sahu. All rights reserved.<br />
+      
+    </footer>
+  </body>
+</html>
