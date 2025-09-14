@@ -1,239 +1,297 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfolio — Blockchain & Web Developer</title>
+  <meta charset="UTF-8">
+  <title>My Portfolio</title>
+
+  <!-- Three.js + Vanta.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js"></script>
+
   <style>
-    :root{
-      --bg:#0a0a0f;
-      --card:#12121acc;
-      --accent:#00f5d4;
-      --accent2:#9d4edd;
-      --glass: rgba(255,255,255,0.05);
-      color-scheme: dark;
-      font-family: Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #0f0f0f; color: white; overflow-x: hidden; }
+
+    /* Background wrapper */
+    #bg {
+      width: 100%;
+      min-height: 100vh;
     }
-    html,body{height:100%;margin:0;background:var(--bg);}
-    #bgcanvas{position:fixed;inset:0;z-index:0;display:block}
 
-    .wrap{position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 24px;}
-    .container{width:100%;max-width:1100px}
+    /* Intro Fullscreen */
+    #intro {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 9999;
+      overflow: hidden;
+    }
 
-    header{display:flex;align-items:center;gap:16px;margin-bottom:28px}
-    .avatar{width:96px;height:96px;border-radius:18px;overflow:hidden;border:2px solid var(--accent);flex-shrink:0;box-shadow:0 0 20px var(--accent)}
-    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-    h1{margin:0;font-size:28px;color:#fff;text-shadow:0 0 8px var(--accent2)}
-    .role{color:var(--accent);margin-top:6px;font-weight:700;letter-spacing:0.5px}
+    #matrixCanvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: black;
+    }
 
-    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;margin-bottom:28px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));border-radius:14px;padding:18px;box-shadow:0 0 30px rgba(0,245,212,0.1);backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,0.05);margin-bottom:22px}
+    .error-box {
+      text-align: center;
+      color: #00ff00;
+      background: rgba(0,0,0,0.6);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,255,0,0.3);
+    }
 
-    .intro{color:#e6eef8;line-height:1.6}
-    .cta-row{display:flex;gap:12px;margin-top:18px}
-    .btn{padding:10px 14px;border-radius:10px;background:var(--accent2);color:white;font-weight:600;border:none;cursor:pointer;box-shadow:0 0 10px var(--accent2)}
-    .btn.ghost{background:transparent;border:1px solid var(--accent);color:var(--accent)}
+    .error-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
 
-    .stats{display:flex;gap:12px;margin-top:12px}
-    .stat{background:var(--glass);padding:10px 12px;border-radius:10px;color:#dbe9ff}
-    .stat strong{display:block;font-size:18px;color:var(--accent)}
-    .section-title{color:var(--accent2);margin:0 0 10px 0;font-weight:700;text-shadow:0 0 6px var(--accent2)}
+    .error-box h2 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #00ff00;
+    }
 
-    .projects,.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .project,.skill{padding:12px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);box-shadow:0 0 12px rgba(157,78,221,0.3)}
-    .project h3,.skill h3{margin:0 0 6px 0;font-size:16px;color:var(--accent)}
-    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .tag{font-size:12px;padding:6px 8px;border-radius:8px;background:rgba(0,245,212,0.1);color:#fff}
+    .error-box p {
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
 
-    .timeline{display:flex;flex-direction:column;gap:10px}
-    .exp{display:flex;gap:12px;align-items:flex-start}
-    .exp .dot{width:10px;height:10px;border-radius:50%;background:var(--accent2);margin-top:6px;box-shadow:0 0 10px var(--accent2)}
-    .exp .body{background:rgba(255,255,255,0.03);padding:12px;border-radius:10px;color:#e6eef8}
+    .error-box .small {
+      color: #00ff00;
+      font-size: 0.8rem;
+    }
 
-    .achievements{list-style:none;padding:0;color:#e6eef8}
-    .achievements li{margin:6px 0;padding:8px;background:rgba(255,255,255,0.03);border-radius:8px}
+    .error-box button {
+      margin-top: 20px;
+      padding: 8px 16px;
+      background: #00ff00;
+      border: none;
+      color: black;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-    form{display:flex;flex-direction:column;gap:10px}
-    input,textarea{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:white}
-    input:focus,textarea:focus{outline:none;border:1px solid var(--accent2)}
-    button.submit{padding:12px;background:var(--accent2);color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;box-shadow:0 0 8px var(--accent2)}
+    #countdown {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #00ff00;
+    }
 
-    footer{margin-top:34px;color:#9fb0ff;display:flex;justify-content:space-between;align-items:center;gap:16px}
-    .socials{display:flex;gap:12px}
-    a.social{padding:8px 10px;border-radius:10px;background:rgba(255,255,255,0.03);text-decoration:none;color:var(--accent)}
+    #logoR {
+      margin-top: 20px;
+      font-size: 5rem;
+      font-weight: bold;
+      color: #00ff00;
+      text-shadow: 0 0 30px #00ff00;
+      transform: scale(0);
+      transition: all 1s ease;
+    }
 
-    @media (max-width:900px){.hero{grid-template-columns:1fr}.container{padding:0}}
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 40px; z-index: 100;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #00f7ff;
+      transition: transform 1s ease;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #00f7ff; }
+
+    /* Hero Section */
+    .hero {
+      margin-top: 120px;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .hero h2 { font-size: 2.5rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.2rem; max-width: 700px; margin: auto; }
+    .hero button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00f7ff; border: none;
+      color: black; font-size: 1rem;
+      border-radius: 5px; cursor: pointer;
+    }
+
+    /* About Section */
+    .about {
+      display: flex; justify-content: center; align-items: center;
+      padding: 100px 20px;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .about img {
+  width: 320px;
+  height: 370px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 3px solid #00f7ff;
+  box-shadow: 8px 8px 0 #0f192e, 16px 16px 0 #00f7ff33;
+    }
+    .about p {
+  max-width: 700px;
+  font-size: 1.1rem;
+  background: rgba(0, 247, 255, 0.7);
+  color: #000;
+  border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.10);
+  border: 1.5px solid rgba(0,247,255,0.18);
+    }
   </style>
 </head>
 <body>
-  <canvas id="bgcanvas"></canvas>
 
-  <div class="wrap">
-    <div class="container">
-      <header>
-        <div class="avatar card">
-          <img src=images/photo.jpg alt="Your Photo" />
-        </div>
-        <div>
-          <h1 id="name">Rashmi Ranjan Sahu</h1>
-          <div class="role">Blockchain & Web Developer</div>
-          <div style="margin-top:8px;color:#9fb0ff;font-size:13px">Decentralized Apps · Smart Contracts · Web3 · Full Stack</div>
-        </div>
-      </header>
-
-      <section class="card">
-        <h2 class="section-title">About Me</h2>
-        <p class="intro">I’m a <strong>Blockchain & Web Developer</strong> passionate about creating secure, scalable decentralized applications, smart contracts, and innovative full-stack solutions bridging Web2 and Web3.</p>
-      </section>
-
-      <section class="card">
-        <h2 class="section-title">Skills</h2>
-        <div class="skills">
-          <div class="skill"><h3>Blockchain</h3><p>Solidity, Smart Contracts, Web3.js, Hardhat, Truffle, IPFS</p></div>
-          <div class="skill"><h3>Frontend</h3><p>React, Next.js, HTML, CSS, JavaScript, TailwindCSS</p></div>
-          <div class="skill"><h3>Backend</h3><p>Node.js, Express, Flask, REST APIs, GraphQL</p></div>
-          <div class="skill"><h3>Databases</h3><p>MongoDB, PostgreSQL, Firebase</p></div>
-          <div class="skill"><h3>Tools</h3><p>Git, Docker, AWS, Linux</p></div>
-        </div>
-      </section>
-
-      <section id="projects" class="card">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects">
-          <article class="project"><h3>Face Recognition System </h3><p>An app to take attendance automatically.</p><div class="tags"><span class="tag">Solidity</span><span class="tag">IPFS</span></div></article>
-          <article class="project"><h3>Canteen Management System</h3><p>To prevent unwanted food wastage,meal prebooking facility.</p><div class="tags"><span class="tag">React</span><span class="tag">Alchemy</span></div></article>
-          <article class="project"><h3>Insurance Website</h3><p>To give updates on policies.</p><div class="tags"><span class="tag">Web3.js</span><span class="tag">Node.js</span></div></article>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2 class="section-title">Experience</h2>
-        <div class="timeline">
-          <div class="exp"><div class="dot"></div><div class="body"><strong>Blockchain Developer</strong><div style="font-size:13px">2024 — Present</div><p>Developed smart contracts for NFTs, wallet integration, and DeFi apps.</p></div></div>
-          <div class="exp"><div class="dot"></div><div class="body"><strong>Freelance Web Developer</strong><div style="font-size:13px">2022 — 2024</div><p>Built responsive web apps and e-commerce sites with React & Node.js.</p></div></div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2 class="section-title">Achievements & Competitions</h2>
-        <ul class="achievements">
-          <li>🏆 Winner — Blockchain Hackathon 2024</li>
-          <li>🥈 2nd Place — Web3 dApp Challenge</li>
-          <li>🎓 Published Research — "Smart Contracts Security"</li>
-          <li>🌍 Speaker at Local Developer Meetup</li>
-        </ul>
-      </section>
-
-      <section class="card">
-        <h2 class="section-title">Contact Me</h2>
-        <form action="mailto:you@example.com" method="post" enctype="text/plain">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-          <button class="submit" type="submit">Send Message</button>
-        </form>
-      </section>
-
-      <footer>
-        <div>© <span id="year"></span> — <strong id="footname">Your Name</strong></div>
-        <div>Made with ❤️</div>
-      </footer>
+  <!-- Intro Screen -->
+  <div id="intro">
+    <canvas id="matrixCanvas"></canvas>
+    <div class="error-box">
+      <div class="error-icon">💻</div>
+      <h2>This site can’t provide a secure connection</h2>
+      <p><strong>myportfolio.com</strong> sent an invalid response.</p>
+      <p class="small">ERR_SSL_PROTOCOL_ERROR</p>
+      <button id="reloadBtn">Reload</button>
+      <div id="countdown"></div>
+      <div id="logoR">R</div>
     </div>
   </div>
 
-  <!-- Background Script (same combined WebDev + Blockchain 3D) -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+  <!-- Background + Content -->
+  <div id="bg">
+    <!-- Header -->
+    <header>
+      <h1 id="headerLogo"></h1>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#projects">Projects</a>
+        <a href="#achievements">Achievements</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <h2>Hello, I'm Rashmi Ranjan</h2>
+      <p>
+        I am a passionate Computer Science student specializing in AI & ML,
+        building innovative projects and exploring modern technologies.
+      </p>
+      <button onclick="window.open('resume.pdf')">Download Resume</button>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about" id="about">
+  <img src="images/myphoto.jpg" alt="My Photo">
+      <p>
+Hi, I'm Rashmi Ranjan Sahu , currently pursuing B.Tech in Computer Science Engineering (CSE) with a specialization in Artificial Intelligence (AI) & Machine Learning (ML). My passion for technology and problem-solving has been the driving force behind my academic journey, and I am committed to continuously developing my skills to stay at the forefront of innovation in AI and ML.
+
+From the start of my B.Tech program, I have focused on building a strong foundation in programming languages such as Python and C, which has enabled me to approach challenges with a clear and analytical mindset. These experiences have sharpened my ability to break down complex problems and implement efficient, scalable solutions.
+
+I’m always excited to connect with like-minded professionals, AI enthusiasts, and anyone who shares a passion for technology, problem-solving, and innovation.
+
+Throughout my academic career, I have embraced a hands-on learning approach, constantly seeking opportunities to work on practical projects and real-world problems.
+      </p>
+    </section>
+  </div>
+
+  <!-- JavaScript -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    document.getElementById('footname').textContent = 'Your Name';
+    // Matrix Rain for Intro
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    const canvas = document.getElementById('bgcanvas');
-    const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-    renderer.setPixelRatio(window.devicePixelRatio);
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 1000);
-    camera.position.set(0, 0, 50);
+    const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = [];
 
-    const hemi = new THREE.HemisphereLight(0x00f5d4, 0x080820, 0.7);
-    scene.add(hemi);
-    const dir = new THREE.DirectionalLight(0x9d4edd, 1);
-    dir.position.set(5,10,7);
-    scene.add(dir);
-
-    // Chains
-    const chainMat = new THREE.MeshStandardMaterial({metalness:0.9, roughness:0.2, color:0x00f5d4});
-    function createChain(x, y, z) {
-      const chain = new THREE.Group();
-      for(let i=0;i<6;i++){
-        const geo = new THREE.TorusGeometry(2, 0.5, 16, 100);
-        const ring = new THREE.Mesh(geo, chainMat);
-        ring.rotation.x = Math.PI/2;
-        ring.position.y = i*3;
-        chain.add(ring);
-      }
-      chain.position.set(x,y,z);
-      return chain;
-    }
-    const chains = [];
-    for(let i=0;i<3;i++){
-      const c = createChain((Math.random()-0.5)*40, (Math.random()-0.5)*30, (Math.random()-0.5)*20);
-      scene.add(c);
-      chains.push(c);
+    for (let i = 0; i < columns; i++) {
+      drops[i] = 1;
     }
 
-    // Cubes
-    const cubeMat = new THREE.MeshStandardMaterial({color:0x9d4edd, metalness:0.6, roughness:0.3});
-    const cubes = [];
-    for(let i=0;i<10;i++){
-      const geo = new THREE.BoxGeometry(2,2,2);
-      const cube = new THREE.Mesh(geo, cubeMat);
-      cube.position.set((Math.random()-0.5)*50, (Math.random()-0.5)*30, (Math.random()-0.5)*30);
-      scene.add(cube);
-      cubes.push(cube);
-    }
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0,0,0,0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00ff00";
+      ctx.font = fontSize + "px monospace";
 
-    // Node Network
-    const nodeMat = new THREE.MeshBasicMaterial({color:0x00f5d4});
-    const nodeGeo = new THREE.SphereGeometry(0.3, 8, 8);
-    const nodes = [];
-    const nodeGroup = new THREE.Group();
-    for(let i=0;i<20;i++){
-      const node = new THREE.Mesh(nodeGeo, nodeMat);
-      node.position.set((Math.random()-0.5)*60, (Math.random()-0.5)*40, (Math.random()-0.5)*40);
-      nodeGroup.add(node);
-      nodes.push(node);
-    }
-    scene.add(nodeGroup);
-
-    const lineMat = new THREE.LineBasicMaterial({color:0x9d4edd, transparent:true, opacity:0.6});
-    const connections = new THREE.Group();
-    nodes.forEach((n1,i)=>{
-      nodes.forEach((n2,j)=>{
-        if(i<j && n1.position.distanceTo(n2.position)<15){
-          const geo = new THREE.BufferGeometry().setFromPoints([n1.position,n2.position]);
-          const line = new THREE.Line(geo, lineMat);
-          connections.add(line);
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
-      });
-    });
-    scene.add(connections);
-
-    function onResize(){
-      renderer.setSize(innerWidth,innerHeight);
-      camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+        drops[i]++;
+      }
     }
-    addEventListener('resize', onResize);
-    onResize();
 
-    function animate(){
-      chains.forEach((c,i)=>{c.rotation.y += 0.002*(i+1);});
-      cubes.forEach(c=>{c.rotation.x+=0.01; c.rotation.y+=0.01;});
-      nodeGroup.rotation.y += 0.001;
-      connections.rotation.y += 0.001;
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    }
-    animate();
+    setInterval(drawMatrix, 40);
+
+    // Vanta background for hero
+    VANTA.NET({
+      el: "#bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x00f7ff,
+      backgroundColor: 0x0f0f0f,
+      points: 12.00,
+      maxDistance: 20.00,
+      spacing: 18.00
+    })
+
+    // Intro Animation
+    const countdown = document.getElementById("countdown");
+    const logoR = document.getElementById("logoR");
+    const headerLogo = document.getElementById("headerLogo");
+
+    setTimeout(() => {
+      let i = 1;
+      const interval = setInterval(() => {
+        countdown.innerText = i;
+        i++;
+        if (i > 3) {
+          clearInterval(interval);
+          countdown.innerText = "";
+          logoR.style.transform = "scale(1)";
+          setTimeout(() => {
+            // Animate logo flying to header
+            logoR.style.transition = "all 1s ease";
+            logoR.style.transform = "translate(-300px, -200px) scale(0.5)";
+            setTimeout(() => {
+              document.getElementById("intro").style.display = "none";
+              headerLogo.innerText = "R";
+            }, 1000);
+          }, 1000);
+        }
+      }, 1000);
+    }, 2000);
   </script>
+
 </body>
 </html>
