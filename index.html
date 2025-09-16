@@ -22,7 +22,26 @@
     body { font-family: Arial, sans-serif; background: #0f0f0f; color: white; overflow-x: hidden; }
 
     /* Background wrapper */
-    #bg { width: 100%; min-height: 100vh; }
+    #bg { width: 100%; min-height: 100vh; position: relative; z-index: 1; }
+    #rest3d {
+      width: 100vw;
+      min-height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, #f0f7ff 0%, #e0e7ff 100%),
+        repeating-linear-gradient(120deg, #00f7ff22 0px, #00f7ff22 2px, transparent 2px, transparent 40px);
+      opacity: 0.18;
+      mix-blend-mode: lighten;
+      animation: decent3dMove 18s linear infinite;
+    }
+    @keyframes decent3dMove {
+      0% { background-position: 0 0, 0 0; }
+      100% { background-position: 80px 80px, 160px 160px; }
+    }
 
     /* Intro Fullscreen */
     #intro {
@@ -45,34 +64,34 @@
 
     .error-box {
       text-align: center;
-      color: #00ff00;
+      color: #00f7ff;
       background: rgba(0,0,0,0.6);
       padding: 40px;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,255,0,0.3);
+      box-shadow: 0 0 20px #00f7ff(0,255,0,0.3);
     }
 
     .error-icon { font-size: 3rem; margin-bottom: 15px; }
-    .error-box h2 { font-size: 1.2rem; margin-bottom: 10px; color: #00ff00; }
+    .error-box h2 { font-size: 1.2rem; margin-bottom: 10px; color: #00f7ff; }
     .error-box p { font-size: 0.9rem; margin: 5px 0; }
-    .error-box .small { color: #00ff00; font-size: 0.8rem; }
+    .error-box .small { color: #00f7ff; font-size: 0.8rem; }
     .error-box button {
       margin-top: 20px;
       padding: 8px 16px;
-      background: #00ff00;
+      background: #00f7ff;
       border: none; color: black;
       font-weight: bold;
       border-radius: 4px;
       cursor: pointer;
     }
-    #countdown { margin-top: 20px; font-size: 1.5rem; color: #00ff00; }
+    #countdown { margin-top: 20px; font-size: 1.5rem; color: #00f7ff; }
 
     #logoR {
       margin-top: 20px;
       font-size: 5rem;
       font-weight: bold;
-      color: #00ff00;
-      text-shadow: 0 0 30px #00ff00;
+      color: #00f7ff;
+      text-shadow: 0 0 30px #00f7ff;
       transform: scale(0);
       transition: all 1s ease;
     }
@@ -94,7 +113,7 @@
 
     /* Hero Section */
     .hero {
-      margin-top: 120px;
+      margin-top: 40px; /* reduced from 120px to move hero section up */
       text-align: center;
       padding: 100px 20px;
     }
@@ -128,6 +147,71 @@
       box-shadow: 0 2px 16px 0 rgba(0,0,0,0.10);
       border: 1.5px solid rgba(0,247,255,0.18);
     }
+    /* Advanced Hacking Theme for Intro */
+    #intro {
+      background: linear-gradient(135deg, #0f0f0f 60%, #001a1a 100%);
+      box-shadow: 0 0 80px #00ffea44 inset, 0 0 120px #00ffea22;
+      animation: hackPulse 2.5s infinite alternate;
+    }
+    @keyframes hackPulse {
+      0% { box-shadow: 0 0 80px #00ffea44 inset, 0 0 120px #00ffea22; }
+      100% { box-shadow: 0 0 120px #00ffea88 inset, 0 0 180px #00ffea44; }
+    }
+    #matrixCanvas {
+      opacity: 0.7;
+      filter: blur(0.5px) brightness(1.2);
+      mix-blend-mode: lighten;
+    }
+    .error-box {
+      background: rgba(10, 20, 30, 0.85);
+      border: 2px solid #00ffea;
+      box-shadow: 0 0 32px #00ffea88, 0 0 8px #00ffea inset;
+      color: #00ffea;
+      text-shadow: 0 0 8px #00ffea, 0 0 2px #00ffea;
+    }
+    .error-icon img {
+      filter: drop-shadow(0 0 8px #00ffea) brightness(1.2);
+    }
+    .error-box h2, .error-box p, .error-box .small {
+      color: #00ffea;
+      text-shadow: 0 0 4px #00ffea, 0 0 1px #00ffea;
+    }
+    .error-box button {
+      background: #00ffea;
+      color: #0f0f0f;
+      box-shadow: 0 0 8px #00ffea;
+    }
+    /* Mobile Responsive Intro Section */
+    @media (max-width: 600px) {
+      #intro {
+        padding: 0 10px;
+        align-items: center; /* changed from flex-start to center */
+        justify-content: center; /* ensure vertical centering */
+      }
+      .error-box {
+        padding: 18px 8px;
+        font-size: 0.95rem;
+        border-radius: 7px;
+      }
+      .error-icon img {
+        height: 2.2rem !important;
+        margin-bottom: 10px !important;
+      }
+      #logoR {
+        font-size: 2.8rem;
+        margin-top: 10px;
+      }
+      #countdown {
+        font-size: 1.1rem;
+      }
+      .error-box h2 {
+        font-size: 1rem;
+      }
+      .error-box button {
+        padding: 7px 12px;
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -136,7 +220,7 @@
   <div id="intro">
     <canvas id="matrixCanvas"></canvas>
     <div class="error-box">
-      <div class="error-icon">💻</div>
+      <div class="error-icon"><img src="images/danger.png" alt="Danger" style="height:3rem; margin-bottom:15px;"></div>
       <h2>This site can’t provide a secure connection</h2>
       <p><strong>myportfolio.com</strong> sent an invalid response.</p>
       <p class="small">ERR_SSL_PROTOCOL_ERROR</p>
@@ -146,6 +230,8 @@
     </div>
   </div>
 
+  <!-- Subtle 3D background overlay for rest of page -->
+  <div id="decent3d"></div>
   <!-- Background + Content -->
   <div id="bg">
     <!-- Header -->
@@ -154,6 +240,8 @@
       <nav>
         <a href="#home">Home</a>
         <a href="#about">About Us</a>
+        <a href="#Skills">Skills</a>
+        <a href="#Experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#achievements">Achievements</a>
       </nav>
@@ -168,6 +256,9 @@
       </p>
       <button onclick="window.open('Resume_OnePage.pdf')">Download Resume</button>
     </section>
+
+    <!-- 3D background for rest of page -->
+    <div id="rest3d"></div>
 
     <!-- About Us Section -->
     <section class="about" id="about">
@@ -186,6 +277,116 @@
       </p>
     </section>
   </div>
+
+      <!-- Projects Section -->
+    <section class="projects" id="projects" style="margin-top:60px;">
+      <h2 style="color:#00f7ff; font-size:2.2rem; margin-bottom:30px; text-align:center;">Projects</h2>
+      <div class="project-list" style="display:flex; flex-direction:column; gap:40px; justify-content:center; align-items:center;">
+        
+        <!-- Psych Sync (Image Right, Frontend Only) -->
+        <div class="project-card" style="display:flex; flex-direction:row; width:100%; max-width:1100px; min-height:320px; background:rgba(0,247,255,0.08); border-radius:0; box-shadow:0 4px 24px #00f7ff22; margin-bottom:0; align-items:stretch;">
+          <div style="flex:1; padding:38px 38px 38px 48px; display:flex; flex-direction:column; justify-content:center;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:16px;">PSYCH SYNC</div>
+              <div style="font-size:1.08rem; color:#000; margin-bottom:24px; background:rgba(0,247,255,0.85); border-radius:14px; padding:18px 22px;">A mental health platform for connecting users with therapists and resources. <span style="background:rgba(255,77,109,0.12); color:red; border-radius:8px; padding:2px 10px; font-size:0.98rem; margin-left:8px;">Frontend Only</span></div>
+            <div style="margin-top:auto; display:flex; gap:16px;">
+              <img src="images/html.png" alt="HTML" title="HTML" style="height:32px;">
+              <img src="images/css.png" alt="CSS" title="CSS" style="height:32px;">
+              <img src="images/js.png" alt="JavaScript" title="JavaScript" style="height:32px;">
+            </div>
+          </div>
+          <a href="#" target="_blank" style="flex:1; display:flex; align-items:end; justify-content:end;">
+            <img src="images/psycho.jpg" alt="Psych Sync UI" style="width:100%; height:100%; max-width:480px; min-height:320px; object-fit:cover; border-radius:32px; border-left:2px solid #00f7ff; cursor:pointer;">
+          </a>
+        </div>
+
+        <!-- Mark My Face (Image Left) -->
+        <div class="project-card" style="display:flex; flex-direction:row-reverse; width:100%; max-width:1100px; min-height:320px; background:rgba(0,247,255,0.08); border-radius:0; box-shadow:0 4px 24px #00f7ff22; margin-bottom:0; align-items:stretch;">
+          <div style="flex:1; padding:38px 48px 38px 38px; display:flex; flex-direction:column; justify-content:center;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:16px;">MARK MY FACE</div>
+            <div style="font-size:1.08rem; color:#000; margin-bottom:24px; background:rgba(0,247,255,0.85); border-radius:14px; padding:18px 22px;">An attendance system using face recognition for secure and automated check-ins. <span style="background:rgba(255,77,109,0.12); color:red; border-radius:8px; padding:2px 10px; font-size:0.98rem; margin-left:8px;">Full Stack</span></div>
+            <div style="margin-top:auto; display:flex; gap:16px;">
+              <img src="images/python.png" alt="Python" title="Python" style="height:32px;">
+              <img src="images/html.png" alt="HTML" title="HTML" style="height:32px;">
+              <img src="images/css.png" alt="CSS" title="CSS" style="height:32px;">
+              <img src="images/js.png" alt="JavaScript" title="JavaScript" style="height:32px;">
+            </div>
+          </div>
+          <a href="#" target="_blank" style="flex:1; display:flex; align-items:end; justify-content:start;">
+            <img src="images/face.jpg" alt="Mark My Face UI" style="width:100%; height:100%; max-width:480px; min-height:320px; object-fit:cover; border-radius:32px; border-right:2px solid #00f7ff; cursor:pointer;">
+          </a>
+        </div>
+
+                        <!-- Srikanta LIC (Image Right) -->
+        <div class="project-card" style="display:flex; flex-direction:row; width:100%; max-width:1100px; min-height:320px; background:rgba(0,247,255,0.08); border-radius:0; box-shadow:0 4px 24px #00f7ff22; margin-bottom:0; align-items:stretch;">
+          <div style="flex:1; padding:38px 38px 38px 48px; display:flex; flex-direction:column; justify-content:center;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:16px;">SRIKANTA LIC</div>
+            <div style="font-size:1.08rem; color:#000; margin-bottom:24px; background:rgba(0,247,255,0.85); border-radius:14px; padding:18px 22px;">A complete insurance management portal for agents and customers. Features policy management, claims, and secure login. <span style="background:rgba(255,77,109,0.12); color:red; border-radius:8px; padding:2px 10px; font-size:0.98rem; margin-left:8px;">Full Stack</span></div>
+            <div style="margin-top:auto; display:flex; gap:16px;">
+              <img src="images/python.png" alt="Python" title="Python" style="height:32px;">
+              <img src="images/html.png" alt="HTML" title="HTML" style="height:32px;">
+              <img src="images/css.png" alt="CSS" title="CSS" style="height:32px;">
+              <img src="images/js.png" alt="JavaScript" title="JavaScript" style="height:32px;">
+            </div>
+          </div>
+          <a href="#" target="_blank" style="flex:1; display:flex; align-items:end; justify-content:end;">
+            <img src="images/srikanta.jpg" alt="Srikanta LIC UI" style="width:100%; height:100%; max-width:480px; min-height:320px; object-fit:cover; border-radius:32px; border-left:2px solid #00f7ff; cursor:pointer;">
+          </a>
+        </div>
+
+        <!--Customer Portal (Image Left)-->
+            
+        <div class="project-card" style="display:flex; flex-direction:row-reverse; width:100%; max-width:1100px; min-height:320px; background:rgba(0,247,255,0.08); border-radius:0; box-shadow:0 4px 24px #00f7ff22; margin-bottom:0; align-items:stretch;">
+          <div style="flex:1; padding:38px 48px 38px 38px; display:flex; flex-direction:column; justify-content:center;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:16px;">CUSTOMER PORTAL</div>
+              <div style="font-size:1.08rem; color:#000; margin-bottom:24px; background:rgba(0,247,255,0.85); border-radius:14px; padding:18px 22px;">A secure portal for customers to manage their accounts, view transactions, and interact with support. <span style="background:rgba(255,77,109,0.12); color:red; border-radius:8px; padding:2px 10px; font-size:0.98rem; margin-left:8px;">Full Stack</span></div>
+            <div style="margin-top:auto; display:flex; gap:16px;">
+              <img src="images/python.png" alt="Python" title="Python" style="height:32px;">
+              <img src="images/html.png" alt="HTML" title="HTML" style="height:32px;">
+              <img src="images/css.png" alt="CSS" title="CSS" style="height:32px;">
+              <img src="images/js.png" alt="JavaScript" title="JavaScript" style="height:32px;">
+            </div>
+          </div>
+          <a href="#" target="_blank" style="flex:1; display:flex; align-items:end; justify-content:start;">
+            <img src="images/custoner.jpg" alt="Customer Portal UI" style="width:100%; height:100%; max-width:480px; min-height:320px; object-fit:cover; border-radius:32px; border-right:2px solid #00f7ff; cursor:pointer;">
+          </a>
+        </div>
+
+        <!-- Mess Mate (Image Right, Frontend Only) -->
+        <div class="project-card" style="display:flex; flex-direction:row; width:100%; max-width:1100px; min-height:320px; background:rgba(0,247,255,0.08); border-radius:0; box-shadow:0 4px 24px #00f7ff22; margin-bottom:0; align-items:stretch;">
+          <div style="flex:1; padding:38px 38px 38px 48px; display:flex; flex-direction:column; justify-content:center;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:16px;">MESS MATE</div>
+            <div style="font-size:1.08rem; color:#000; margin-bottom:24px; background:rgba(0,247,255,0.85); border-radius:14px; padding:18px 22px;">A mess management system for students to book meals and track attendance. <span style="background:rgba(255,77,109,0.12); color:red; border-radius:8px; padding:2px 10px; font-size:0.98rem; margin-left:8px;">Frontend Only</span></div>
+            <div style="margin-top:auto; display:flex; gap:16px;">
+              <img src="images/html.png" alt="HTML" title="HTML" style="height:32px;">
+              <img src="images/css.png" alt="CSS" title="CSS" style="height:32px;">
+              <img src="images/js.png" alt="JavaScript" title="JavaScript" style="height:32px;">
+            </div>
+          </div>
+          <a href="#" target="_blank" style="flex:1; display:flex; align-items:end; justify-content:end;">
+            <img src="images/mess.jpg" alt="Mess Mate UI" style="width:100%; height:100%; max-width:480px; min-height:320px; object-fit:cover; border-radius:32px; border-left:2px solid #00f7ff; cursor:pointer;">
+          </a>
+        </div>
+
+        <!-- Mealpathy (Image Left, Frontend Only) -->
+        <div class="project-card" style="display:flex; flex-direction:row-reverse; width:100%; max-width:1100px; min-height:320px; background:rgba(0,247,255,0.08); border-radius:0; box-shadow:0 4px 24px #00f7ff22; margin-bottom:0; align-items:stretch;">
+          <div style="flex:1; padding:38px 48px 38px 38px; display:flex; flex-direction:column; justify-content:center;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:16px;">MEALPATHY</div>
+            <div style="font-size:1.08rem; color:#000; margin-bottom:24px; background:rgba(0,247,255,0.85); border-radius:14px; padding:18px 22px;">A platform for patients to select and manage food preferences in hospitals. <span style="background:rgba(255,77,109,0.12); color:red; border-radius:8px; padding:2px 10px; font-size:0.98rem; margin-left:8px;">Frontend Only</span></div>
+            <div style="margin-top:auto; display:flex; gap:16px;">
+              <img src="images/html.png" alt="HTML" title="HTML" style="height:32px;">
+              <img src="images/css.png" alt="CSS" title="CSS" style="height:32px;">
+              <img src="images/js.png" alt="JavaScript" title="JavaScript" style="height:32px;">
+            </div>
+          </div>
+          <a href="#" target="_blank" style="flex:1; display:flex; align-items:end; justify-content:start;">
+            <img src="images/mealpathy.jpg" alt="Mealpathy UI" style="width:100%; height:100%; max-width:480px; min-height:320px; object-fit:cover; border-radius:32px; border-right:2px solid #00f7ff; cursor:pointer;">
+          </a>
+        </div>
+
+
+      </div>
+      </div>
+    </section>
 
   <!-- JavaScript -->
   <script>
@@ -215,9 +416,25 @@
     }
     setInterval(drawMatrix, 40);
 
-    // Vanta background for hero
+    // Vanta background for hero section only
     VANTA.NET({
       el: "#bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: window.innerHeight,
+      minWidth: window.innerWidth,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x00f7ff,
+      backgroundColor: 0x0f0f0f,
+      points: 18.00,
+      maxDistance: 28.00,
+      spacing: 24.00
+    });
+
+    // Vanta background for rest of page (after hero)
+    VANTA.NET({
+      el: "#rest3d",
       mouseControls: true,
       touchControls: true,
       minHeight: 200.00,
@@ -225,10 +442,10 @@
       scale: 1.00,
       scaleMobile: 1.00,
       color: 0x00f7ff,
-      backgroundColor: 0x0f0f0f,
-      points: 12.00,
-      maxDistance: 20.00,
-      spacing: 18.00
+      backgroundColor: 0x0f0f0f, // changed from gray to black
+      points: 10.00,
+      maxDistance: 18.00,
+      spacing: 20.00
     });
 
     // Intro Animation
@@ -241,19 +458,25 @@
       const interval = setInterval(() => {
         countdown.innerText = i;
         i++;
-        if (i > 3) {
+        if (i > 4) {
           clearInterval(interval);
-          countdown.innerText = "";
-          logoR.style.transform = "scale(1)";
+          countdown.innerHTML = "<span style='font-size:2.2rem; color:red; font-family:monospace; text-shadow:0 0 12px red;'>Hacked Succesfully!!!!!</span>";
           setTimeout(() => {
-            // Animate logo flying to header
-            logoR.style.transition = "all 1s ease";
-            logoR.style.transform = "translate(-300px, -200px) scale(0.5)";
+            countdown.innerText = "";
+            logoR.style.transition = "all 1.2s cubic-bezier(.68,-0.55,.27,1.55)";
+            logoR.style.transform = "scale(1.5) rotate(-12deg)";
+            logoR.style.textShadow = "0 0 40px #00ffea, 0 0 80px #00ffea";
+            logoR.style.color = "#00ffea";
             setTimeout(() => {
-              document.getElementById("intro").style.display = "none";
-              headerLogo.innerText = "R";
-            }, 1000);
-          }, 1000);
+              logoR.style.transform = "translate(-300px, -200px) scale(0.5) rotate(0deg)";
+              logoR.style.textShadow = "0 0 30px #00f7ff";
+              logoR.style.color = "#00f7ff";
+              setTimeout(() => {
+                document.getElementById("intro").style.display = "none";
+                headerLogo.innerText = "R";
+              }, 1000);
+            }, 1200);
+          }, 900);
         }
       }, 1000);
     }, 2000);
