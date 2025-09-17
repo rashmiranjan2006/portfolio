@@ -240,7 +240,7 @@
       <nav>
         <a href="#home">Home</a>
         <a href="#about">About Us</a>
-        <a href="#Skills">Skills</a>
+        <a href="#skills">Skills</a>
         <a href="#Experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#achievements">Achievements</a>
@@ -276,9 +276,186 @@
         and anyone who shares a passion for technology, problem-solving, and innovation.
       </p>
     </section>
-  </div>
 
-      <!-- Projects Section -->
+    <!-- Skills Section with 3D Galaxy Curved Rectangular Background -->
+
+    <section class="skills" id="skills" style="width:100vw; height:650px; position:relative; z-index:2; display:flex; justify-content:center; align-items:center;">
+      <div style="width:90vw; height:600px; border-radius:48px; background:black; box-shadow:0 0 80px #00f7ff55, 0 0 120px #1a1a2e inset; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <h2 style="color:#00f7ff; font-size:2.2rem; margin-top:1rem; margin-bottom:30px; text-align:center; text-shadow:0 0 18px #00f7ff;">Skills</h2>
+        <div id="skills3d" style="width:100vw; max-width:1100px; height:500px; margin:auto; border-radius:32px; position:relative; z-index:2;"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <script>
+          // Scene setup
+          const scene2 = new THREE.Scene();
+          // Add 3D stars (expanded to fill the entire box)
+          for (let i = 0; i < 350; i++) {
+            const geometry = new THREE.SphereGeometry(0.012, 8, 8);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const star = new THREE.Mesh(geometry, material);
+            // Spread stars across the full box volume
+            star.position.x = (Math.random() - 0.5) * 9.0; // wider
+            star.position.y = (Math.random() - 0.5) * 5.8; // taller
+            star.position.z = (Math.random() - 0.5) * 7.0; // deeper
+            scene2.add(star);
+          }
+
+          const camera2 = new THREE.PerspectiveCamera(75, window.innerWidth/1100, 0.1, 1000);
+          const renderer2 = new THREE.WebGLRenderer({antialias:true, alpha:true});
+          renderer2.setSize(Math.min(window.innerWidth, 1100), 500);
+          document.getElementById('skills3d').appendChild(renderer2.domElement);
+
+          // Skill icon URLs
+          const skillIcons2 = [
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
+            "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/web3/web3-original.svg"
+          ];
+
+          // Arrange icons in a sphere
+          const iconSprites2 = [];
+          const radius2 = 2.2;
+          for (let i = 0; i < skillIcons2.length; i++) {
+            const texture = new THREE.TextureLoader().load(skillIcons2[i]);
+            const material = new THREE.SpriteMaterial({ map: texture });
+            const sprite = new THREE.Sprite(material);
+            sprite.scale.set(0.7, 0.7, 1);
+            // Spherical coordinates
+            const phi = Math.acos(-1 + (2 * i) / skillIcons2.length);
+            const theta = Math.sqrt(skillIcons2.length * Math.PI) * phi;
+            sprite.position.set(
+              radius2 * Math.cos(theta) * Math.sin(phi),
+              radius2 * Math.sin(theta) * Math.sin(phi),
+              radius2 * Math.cos(phi)
+            );
+            scene2.add(sprite);
+            iconSprites2.push(sprite);
+          }
+
+          camera2.position.z = 5;
+
+          // Mouse drag and touch rotation for 3D model effect
+          let isDragging2 = false, prevX2 = 0, prevY2 = 0, rotationY2 = 0, rotationX2 = 0, autoRotateY2 = 0.008;
+          renderer2.domElement.addEventListener('mousedown', e => { isDragging2 = true; prevX2 = e.clientX; prevY2 = e.clientY; });
+          renderer2.domElement.addEventListener('mouseup', () => { isDragging2 = false; });
+          renderer2.domElement.addEventListener('mousemove', e => {
+            if (isDragging2) {
+              rotationY2 += (e.clientX - prevX2) * 0.01;
+              rotationX2 += (e.clientY - prevY2) * 0.01;
+              prevX2 = e.clientX;
+              prevY2 = e.clientY;
+            }
+          });
+          // Touch support
+          renderer2.domElement.addEventListener('touchstart', e => {
+            isDragging2 = true;
+            prevX2 = e.touches[0].clientX;
+            prevY2 = e.touches[0].clientY;
+          });
+          renderer2.domElement.addEventListener('touchend', () => { isDragging2 = false; });
+          renderer2.domElement.addEventListener('touchmove', e => {
+            if (isDragging2) {
+              rotationY2 += (e.touches[0].clientX - prevX2) * 0.01;
+              rotationX2 += (e.touches[0].clientY - prevY2) * 0.01;
+              prevX2 = e.touches[0].clientX;
+              prevY2 = e.touches[0].clientY;
+            }
+          });
+
+          // Animate
+          function animate2() {
+            requestAnimationFrame(animate2);
+            if (!isDragging2) rotationY2 += autoRotateY2; // auto-rotation when not dragging
+            scene2.rotation.y = rotationY2;
+            scene2.rotation.x = rotationX2;
+            renderer2.render(scene2, camera2);
+          }
+          animate2();
+
+          window.addEventListener("resize", () => {
+            camera2.aspect = Math.min(window.innerWidth, 1100) / 500;
+            camera2.updateProjectionMatrix();
+            renderer2.setSize(Math.min(window.innerWidth, 1100), 500);
+          });
+        </script>
+      </div>
+    </section>
+     <script>
+        // Arrange icons in a sphere
+        const iconSprites2 = [];
+        const radius2 = 2.2;
+        for (let i = 0; i < skillIcons2.length; i++) {
+          const texture = new THREE.TextureLoader().load(skillIcons2[i]);
+          const material = new THREE.SpriteMaterial({ map: texture });
+          const sprite = new THREE.Sprite(material);
+          sprite.scale.set(0.7, 0.7, 1);
+          // Spherical coordinates
+          const phi = Math.acos(-1 + (2 * i) / skillIcons2.length);
+          const theta = Math.sqrt(skillIcons2.length * Math.PI) * phi;
+          sprite.position.set(
+            radius2 * Math.cos(theta) * Math.sin(phi),
+            radius2 * Math.sin(theta) * Math.sin(phi),
+            radius2 * Math.cos(phi)
+          );
+          scene2.add(sprite);
+          iconSprites2.push(sprite);
+        }
+
+        camera2.position.z = 5;
+
+        // Mouse drag and touch rotation for 3D model effect
+        let isDragging2 = false, prevX2 = 0, prevY2 = 0, rotationY2 = 0, rotationX2 = 0, autoRotateY2 = 0.008;
+        renderer2.domElement.addEventListener('mousedown', e => { isDragging2 = true; prevX2 = e.clientX; prevY2 = e.clientY; });
+        renderer2.domElement.addEventListener('mouseup', () => { isDragging2 = false; });
+        renderer2.domElement.addEventListener('mousemove', e => {
+          if (isDragging2) {
+            rotationY2 += (e.clientX - prevX2) * 0.01;
+            rotationX2 += (e.clientY - prevY2) * 0.01;
+            prevX2 = e.clientX;
+            prevY2 = e.clientY;
+          }
+        });
+        // Touch support
+        renderer2.domElement.addEventListener('touchstart', e => {
+          isDragging2 = true;
+          prevX2 = e.touches[0].clientX;
+          prevY2 = e.touches[0].clientY;
+        });
+        renderer2.domElement.addEventListener('touchend', () => { isDragging2 = false; });
+        renderer2.domElement.addEventListener('touchmove', e => {
+          if (isDragging2) {
+            rotationY2 += (e.touches[0].clientX - prevX2) * 0.01;
+            rotationX2 += (e.touches[0].clientY - prevY2) * 0.01;
+            prevX2 = e.touches[0].clientX;
+            prevY2 = e.touches[0].clientY;
+          }
+        });
+
+        // Animate
+        function animate2() {
+          requestAnimationFrame(animate2);
+          if (!isDragging2) rotationY2 += autoRotateY2; // auto-rotation when not dragging
+          scene2.rotation.y = rotationY2;
+          scene2.rotation.x = rotationX2;
+          renderer2.render(scene2, camera2);
+        }
+        animate2();
+
+        window.addEventListener("resize", () => {
+          camera2.aspect = window.innerWidth / 500;
+          camera2.updateProjectionMatrix();
+          renderer2.setSize(window.innerWidth, 500);
+        });
+      </script>
+    </section>
+
+    <!-- Projects Section -->
     <section class="projects" id="projects" style="margin-top:60px;">
       <h2 style="color:#00f7ff; font-size:2.2rem; margin-bottom:30px; text-align:center;">Projects</h2>
       <div class="project-list" style="display:flex; flex-direction:column; gap:40px; justify-content:center; align-items:center;">

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Skills Cloud</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #0d1117; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Skill icon URLs (replace with your own if needed)
+    const skillIcons = [
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/web3/web3-original.svg"
+    ];
+
+    // Arrange icons in a sphere
+    const iconSprites = [];
+    const radius = 2.2;
+    for (let i = 0; i < skillIcons.length; i++) {
+      const texture = new THREE.TextureLoader().load(skillIcons[i]);
+      const material = new THREE.SpriteMaterial({ map: texture });
+      const sprite = new THREE.Sprite(material);
+      sprite.scale.set(0.7, 0.7, 1);
+      // Spherical coordinates
+      const phi = Math.acos(-1 + (2 * i) / skillIcons.length);
+      const theta = Math.sqrt(skillIcons.length * Math.PI) * phi;
+      sprite.position.set(
+        radius * Math.cos(theta) * Math.sin(phi),
+        radius * Math.sin(theta) * Math.sin(phi),
+        radius * Math.cos(phi)
+      );
+      scene.add(sprite);
+      iconSprites.push(sprite);
+    }
+
+    camera.position.z = 5;
+
+    // Mouse drag and touch rotation for 3D model effect
+    let isDragging = false, prevX = 0, prevY = 0, rotationY = 0, rotationX = 0, autoRotateY = 0.008;
+    renderer.domElement.addEventListener('mousedown', e => { isDragging = true; prevX = e.clientX; prevY = e.clientY; });
+    renderer.domElement.addEventListener('mouseup', () => { isDragging = false; });
+    renderer.domElement.addEventListener('mousemove', e => {
+      if (isDragging) {
+        rotationY += (e.clientX - prevX) * 0.01;
+        rotationX += (e.clientY - prevY) * 0.01;
+        prevX = e.clientX;
+        prevY = e.clientY;
+      }
+    });
+    // Touch support
+    renderer.domElement.addEventListener('touchstart', e => {
+      isDragging = true;
+      prevX = e.touches[0].clientX;
+      prevY = e.touches[0].clientY;
+    });
+    renderer.domElement.addEventListener('touchend', () => { isDragging = false; });
+    renderer.domElement.addEventListener('touchmove', e => {
+      if (isDragging) {
+        rotationY += (e.touches[0].clientX - prevX) * 0.01;
+        rotationX += (e.touches[0].clientY - prevY) * 0.01;
+        prevX = e.touches[0].clientX;
+        prevY = e.touches[0].clientY;
+      }
+    });
+
+    // Animate
+    function animate() {
+      requestAnimationFrame(animate);
+      if (!isDragging) rotationY += autoRotateY; // auto-rotation when not dragging
+      scene.rotation.y = rotationY;
+      scene.rotation.x = rotationX;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Skills Section (copied from skill.html) -->
+    <section class="skills" id="skills" style="width:100vw; height:600px; position:relative; z-index:2;">
+      <h2 style="color:#00f7ff; font-size:2.2rem; margin-bottom:30px; text-align:center;">Skills</h2>
+      <div id="skills3d" style="width:100vw; height:500px;"></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script>
+        // Scene setup
+        const scene2 = new THREE.Scene();
+        const camera2 = new THREE.PerspectiveCamera(75, window.innerWidth/500, 0.1, 1000);
+        const renderer2 = new THREE.WebGLRenderer({antialias:true, alpha:true});
+        renderer2.setSize(window.innerWidth, 500);
+        document.getElementById('skills3d').appendChild(renderer2.domElement);
+
+        // Skill icon URLs
+        const skillIcons2 = [
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
+          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/web3/web3-original.svg"
+        ];
