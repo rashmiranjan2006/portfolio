@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+      .experience-card {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 32px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+      }
+    </style>
   <meta charset="UTF-8">
   <title>Rashmi Ranjan Sahu | Portfolio</title>
 
@@ -221,9 +231,9 @@
     <canvas id="matrixCanvas"></canvas>
     <div class="error-box">
       <div class="error-icon"><img src="images/danger.png" alt="Danger" style="height:3rem; margin-bottom:15px;"></div>
-      <h2>This site can’t provide a secure connection</h2>
-      <p><strong>myportfolio.com</strong> sent an invalid response.</p>
-      <p class="small">ERR_SSL_PROTOCOL_ERROR</p>
+      <h2>This site can’t provide a secure connection to reach</h2>
+      <p><strong>www.rashmi.com</strong> unexpectedly closed.</p>
+  <p class="small">SUCC_CONNECTION_OPENED</p>
       <button id="reloadBtn">Reload</button>
       <div id="countdown"></div>
       <div id="logoR">R</div>
@@ -241,9 +251,10 @@
         <a href="#home">Home</a>
         <a href="#about">About Us</a>
         <a href="#skills">Skills</a>
-        <a href="#Experience">Experience</a>
+        <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
       </nav>
     </header>
 
@@ -254,16 +265,17 @@
         I am a passionate Computer Science student specializing in AI & ML,
         building innovative projects and exploring modern technologies.
       </p>
-      <button onclick="window.open('Resume_OnePage.pdf')">Download Resume</button>
+      <button onclick="window.open('Resume_One Page.pdf')">Download Resume</button>
     </section>
 
+  
     <!-- 3D background for rest of page -->
     <div id="rest3d"></div>
 
     <!-- About Us Section -->
     <section class="about" id="about">
-      <img src="images/myphoto.jpg" alt="My Photo">
-      <p>
+      <img src="images/myphoto.jpg" alt="My Photo">  
+      <p>     
         Hi, I'm Rashmi Ranjan Sahu, currently pursuing B.Tech in Computer Science Engineering (CSE) 
         with a specialization in Artificial Intelligence (AI) & Machine Learning (ML). My passion 
         for technology and problem-solving has been the driving force behind my academic journey, 
@@ -280,8 +292,8 @@
     <!-- Skills Section with 3D Galaxy Curved Rectangular Background -->
 
     <section class="skills" id="skills" style="width:100vw; height:650px; position:relative; z-index:2; display:flex; justify-content:center; align-items:center;">
-      <div style="width:90vw; height:600px; border-radius:48px; background:black; box-shadow:0 0 80px #00f7ff55, 0 0 120px #1a1a2e inset; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-        <h2 style="color:#00f7ff; font-size:2.2rem; margin-top:1rem; margin-bottom:30px; text-align:center; text-shadow:0 0 18px #00f7ff;">Skills</h2>
+  <div style="width:70vw; height:600px; border-radius:48px; background:black; box-shadow:0 0 80px #00f7ff55, 0 0 120px #1a1a2e inset; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <h2 style="color:#00f7ff; font-size:2.2rem; margin-top:1rem; margin-bottom:30px; text-align:center; text-shadow:0 0 18px #00f7ff;">Tools & Technologies</h2>
         <div id="skills3d" style="width:100vw; max-width:1100px; height:500px; margin:auto; border-radius:32px; position:relative; z-index:2;"></div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
         <script>
@@ -386,73 +398,29 @@
         </script>
       </div>
     </section>
-     <script>
-        // Arrange icons in a sphere
-        const iconSprites2 = [];
-        const radius2 = 2.2;
-        for (let i = 0; i < skillIcons2.length; i++) {
-          const texture = new THREE.TextureLoader().load(skillIcons2[i]);
-          const material = new THREE.SpriteMaterial({ map: texture });
-          const sprite = new THREE.Sprite(material);
-          sprite.scale.set(0.7, 0.7, 1);
-          // Spherical coordinates
-          const phi = Math.acos(-1 + (2 * i) / skillIcons2.length);
-          const theta = Math.sqrt(skillIcons2.length * Math.PI) * phi;
-          sprite.position.set(
-            radius2 * Math.cos(theta) * Math.sin(phi),
-            radius2 * Math.sin(theta) * Math.sin(phi),
-            radius2 * Math.cos(phi)
-          );
-          scene2.add(sprite);
-          iconSprites2.push(sprite);
-        }
 
-        camera2.position.z = 5;
-
-        // Mouse drag and touch rotation for 3D model effect
-        let isDragging2 = false, prevX2 = 0, prevY2 = 0, rotationY2 = 0, rotationX2 = 0, autoRotateY2 = 0.008;
-        renderer2.domElement.addEventListener('mousedown', e => { isDragging2 = true; prevX2 = e.clientX; prevY2 = e.clientY; });
-        renderer2.domElement.addEventListener('mouseup', () => { isDragging2 = false; });
-        renderer2.domElement.addEventListener('mousemove', e => {
-          if (isDragging2) {
-            rotationY2 += (e.clientX - prevX2) * 0.01;
-            rotationX2 += (e.clientY - prevY2) * 0.01;
-            prevX2 = e.clientX;
-            prevY2 = e.clientY;
-          }
-        });
-        // Touch support
-        renderer2.domElement.addEventListener('touchstart', e => {
-          isDragging2 = true;
-          prevX2 = e.touches[0].clientX;
-          prevY2 = e.touches[0].clientY;
-        });
-        renderer2.domElement.addEventListener('touchend', () => { isDragging2 = false; });
-        renderer2.domElement.addEventListener('touchmove', e => {
-          if (isDragging2) {
-            rotationY2 += (e.touches[0].clientX - prevX2) * 0.01;
-            rotationX2 += (e.touches[0].clientY - prevY2) * 0.01;
-            prevX2 = e.touches[0].clientX;
-            prevY2 = e.touches[0].clientY;
-          }
-        });
-
-        // Animate
-        function animate2() {
-          requestAnimationFrame(animate2);
-          if (!isDragging2) rotationY2 += autoRotateY2; // auto-rotation when not dragging
-          scene2.rotation.y = rotationY2;
-          scene2.rotation.x = rotationX2;
-          renderer2.render(scene2, camera2);
-        }
-        animate2();
-
-        window.addEventListener("resize", () => {
-          camera2.aspect = window.innerWidth / 500;
-          camera2.updateProjectionMatrix();
-          renderer2.setSize(window.innerWidth, 500);
-        });
-      </script>
+        <!-- Experience Section -->    
+    <section class="experience" id="experience" style="width:100vw; margin-top:60px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <h2 style="color:#00f7ff; font-size:2.2rem; margin-bottom:30px; text-align:center; text-shadow:0 0 18px #00f7ff;">Experience</h2>
+      <div class="experience-list" style="display:flex; flex-direction:column; gap:40px; justify-content:center; align-items:center; width:100vw;">
+        <!-- Example Experience Card -->
+        <div class="experience-card" style="display:flex; flex-direction:row; gap:32px; width:100%; justify-content:center; align-items:center; flex-wrap:nowrap;">
+          <!-- Main Experience Box -->
+          <div style="background:rgba(0,247,255,0.08); box-shadow:0 4px 24px #00f7ff22; border-radius:28px; width:380px; height:380px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <img src="images/logo.png" alt="Mealpathy Pvt Ltd Logo" style="height:120px; width:120px; object-fit:cover; border-radius:18px; margin-bottom:28px; background:#fff; box-shadow:0 0 18px #00f7ff44;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:18px; text-align:center;">Mealpathy Pvt Ltd</div>
+            <div style="font-size:1.2rem; color:#000; background:#00f7ff; border-radius:16px; padding:18px 22px; text-align:center;">Frontend Developer<br>Developed and maintained responsive, user-friendly web applications using HTML, CSS, JavaScript.</div>
+          </div>
+          <!-- Side Box for Club Role -->
+          <div style="background:rgba(0,247,255,0.08); box-shadow:0 4px 24px #00f7ff22; border-radius:28px; width:380px; height:380px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <img src="images/club.jpg" alt="Cloud Computing Club Logo" style="height:120px; width:120px; object-fit:cover; border-radius:18px; margin-bottom:28px; background:#fff; box-shadow:0 0 18px #00f7ff44;">
+            <div style="font-size:1.7rem; font-weight:bold; color:#00f7ff; margin-bottom:18px; text-align:center;">Cloud Computing Club</div>
+            <div style="font-size:1.2rem; color:#000; background:#00f7ff; border-radius:16px; padding:18px 22px; text-align:center;">Core Member<br> Designed and developed web applications and interactive platforms to support club activities and events.</div>
+          </div>
+        </div>
+        </div>
+        <!-- Add more experience cards below as needed -->
+      </div>
     </section>
 
     <!-- Projects Section -->
@@ -564,6 +532,105 @@
       </div>
       </div>
     </section>
+
+        <!-- Achievements Section -->
+    <section class="achievements" id="achievements" style="width:100vw; margin-top:60px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <h2 style="color:#00f7ff; font-size:2.2rem; margin-bottom:30px; text-align:center; text-shadow:0 0 18px #00f7ff;">Achievements</h2>
+      <div class="achievement-list" style="display:flex; flex-wrap:wrap; gap:32px; justify-content:center; align-items:center;">
+        <!-- Achievement Card 1 -->
+        <div style="background:rgba(0,247,255,0.10); box-shadow:0 4px 24px #00f7ff44; border-radius:24px; padding:32px 28px; min-width:320px; max-width:400px; display:flex; flex-direction:row; align-items:center; gap:18px;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="IIT KGP GES" style="height:48px; width:48px; border-radius:12px; background:#fff; box-shadow:0 0 12px #00f7ff44;">
+          <div style="font-size:1.15rem; color:#00f7ff; font-weight:bold;">Attended IIT KGP GES 25 Global Entrepreneurship Summit</div>
+        </div>
+        <!-- Achievement Card 2 -->
+        <div style="background:rgba(0,247,255,0.10); box-shadow:0 4px 24px #00f7ff44; border-radius:24px; padding:32px 28px; min-width:320px; max-width:400px; display:flex; flex-direction:row; align-items:center; gap:18px;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="AI Volution Hackathon" style="height:48px; width:48px; border-radius:12px; background:#fff; box-shadow:0 0 12px #00f7ff44;">
+          <div style="font-size:1.15rem; color:#00f7ff; font-weight:bold;">Hackathon: AI Volution – Future Proof Hackathon</div>
+        </div>
+        <!-- Achievement Card 3 -->
+        <div style="background:rgba(0,247,255,0.10); box-shadow:0 4px 24px #00f7ff44; border-radius:24px; padding:32px 28px; min-width:320px; max-width:400px; display:flex; flex-direction:row; align-items:center; gap:18px;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="Investo-spective" style="height:48px; width:48px; border-radius:12px; background:#fff; box-shadow:0 0 12px #00f7ff44;">
+          <div style="font-size:1.15rem; color:#00f7ff; font-weight:bold;">Investo-spective – Business Game, IIT KGP</div>
+        </div>
+        <!-- Achievement Card 4 -->
+        <div style="background:rgba(0,247,255,0.10); box-shadow:0 4px 24px #00f7ff44; border-radius:24px; padding:32px 28px; min-width:320px; max-width:400px; display:flex; flex-direction:row; align-items:center; gap:18px;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="Volunteering" style="height:48px; width:48px; border-radius:12px; background:#fff; box-shadow:0 0 12px #00f7ff44;">
+          <div style="font-size:1.15rem; color:#00f7ff; font-weight:bold;">Volunteered for 1000+ students in induction program</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section with Curved Rectangular Galaxy Box -->
+    <section class="contact" id="contact" style="width:100vw; margin-top:60px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <div style="width:70vw; max-width:500px; min-width:320px; padding:38px 32px 28px 32px; border-radius:38px; background:black; box-shadow:0 0 80px #00f7ff55, 0 0 120px #1a1a2e inset; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <h2 style="color:#00f7ff; font-size:2rem; margin-bottom:1.5rem; text-align:center; text-shadow:0 0 18px #00f7ff;">Contact Me</h2>
+        <form style="width:100%; display:flex; flex-direction:column; gap:18px; align-items:center;">
+          <input type="text" name="name" placeholder="Your Name" required style="width:90%; padding:10px 16px; border-radius:18px; border:none; background:#181818; color:#00f7ff; font-size:1rem; margin-bottom:8px;">
+          <input type="tel" name="phone" placeholder="Phone Number" required style="width:90%; padding:10px 16px; border-radius:18px; border:none; background:#181818; color:#00f7ff; font-size:1rem; margin-bottom:8px;">
+          <textarea name="message" placeholder="Your Message" required style="width:90%; min-height:80px; padding:10px 16px; border-radius:18px; border:none; background:#181818; color:#00f7ff; font-size:1rem; margin-bottom:8px;"></textarea>
+          <button type="submit" style="width:60%; padding:12px 0; border-radius:18px; background:#00f7ff; color:black; font-size:1.1rem; font-weight:bold; border:none; cursor:pointer; margin-top:10px; box-shadow:0 0 12px #00f7ff;">Send Message</button>
+        </form>
+      </div>
+      <div style="margin-top:28px; display:flex; gap:32px; justify-content:center; align-items:center;">
+        <a href="https://github.com/rashmiranjan2006" target="_blank" style="color:#00f7ff; font-size:2.2rem; text-decoration:none; display:flex; align-items:center; gap:8px;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="height:2.2rem; filter:brightness(2);"> GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rashmi-ranjan-s-370147325/" target="_blank" style="color:#00f7ff; font-size:2.2rem; text-decoration:none; display:flex; align-items:center; gap:8px;">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" alt="LinkedIn" style="height:2.2rem; filter:brightness(2);"> LinkedIn
+        </a>
+      </div>
+    </section>
+    </section>
+
+        <!-- 3D Galaxy & Star Footer -->
+    <footer style="width:100vw; height:220px; margin-top:60px; position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <div id="footer3d" style="width:100vw; height:400px; border-radius:38px; background:black; box-shadow:0 0 80px #00f7ff55, 0 0 120px #1a1a2e inset; position:relative; overflow:hidden; margin-bottom:18px;"></div>
+            <div style="color:#00f7ff; font-size:2rem; text-align:center; margin-top:18px; text-shadow:0 0 18px #00f7ff; font-family:monospace;">
+        Made with <span style="color:red; font-size:2rem;">&#10084;&#65039;</span> by Rashmi Ranjan Sahu @2025
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      
+      <script> 
+        // 3D Galaxy & Star Footer
+        const sceneFooter = new THREE.Scene();
+        // Add stars
+        for (let i = 0; i < 350; i++) {
+          const geometry = new THREE.SphereGeometry(0.012, 8, 8);
+          const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
+          const star = new THREE.Mesh(geometry, material);
+          star.position.x = (Math.random() - 0.5) * 18.0;
+          star.position.y = (Math.random() - 0.5) * 4.0;
+          star.position.z = (Math.random() - 0.5) * 8.0;
+          sceneFooter.add(star);
+        }
+        // Add a faint galaxy swirl
+        for (let i = 0; i < 60; i++) {
+          const geometry = new THREE.TorusGeometry(0.38 + i*0.08, 0.018, 8, 32);
+          const material = new THREE.MeshBasicMaterial({ color: 0x00f7ff, transparent:true, opacity:0.10 });
+          const torus = new THREE.Mesh(geometry, material);
+          torus.rotation.x = Math.PI/2;
+          torus.position.y = 0.1;
+          sceneFooter.add(torus);
+        }
+        const cameraFooter = new THREE.PerspectiveCamera(75, window.innerWidth/400, 0.1, 1000);
+        const rendererFooter = new THREE.WebGLRenderer({antialias:true, alpha:true});
+        rendererFooter.setSize(window.innerWidth, 400);
+        document.getElementById('footer3d').appendChild(rendererFooter.domElement);
+        cameraFooter.position.z = 8;
+        function animateFooter() {
+          requestAnimationFrame(animateFooter);
+          sceneFooter.rotation.y += 0.002;
+          rendererFooter.render(sceneFooter, cameraFooter);
+        }
+        animateFooter();
+        window.addEventListener("resize", () => {
+          cameraFooter.aspect = window.innerWidth/400;
+          cameraFooter.updateProjectionMatrix();
+          rendererFooter.setSize(window.innerWidth, 400);
+        });
+      </script>
+
+    </footer>
 
   <!-- JavaScript -->
   <script>
