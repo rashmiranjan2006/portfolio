@@ -10,6 +10,54 @@
         align-items: center !important;
         flex-wrap: nowrap !important;
       }
+      @media (max-width: 700px) {
+        .experience-list {
+          gap: 24px !important;
+        }
+        .experience-card {
+          flex-direction: column !important;
+          gap: 18px !important;
+          width: 100% !important;
+        }
+        .experience-card > div {
+          width: 92vw !important;
+          height: 260px !important;
+          min-width: 0 !important;
+          max-width: 98vw !important;
+        }
+        .experience-card img {
+          height: 80px !important;
+          width: 80px !important;
+          margin-bottom: 18px !important;
+        }
+        .experience-card div[style*="font-size:1.7rem"] {
+          font-size: 1.1rem !important;
+          margin-bottom: 10px !important;
+        }
+        .experience-card div[style*="font-size:1.2rem"] {
+          font-size: 0.95rem !important;
+          padding: 10px 12px !important;
+        }
+      }
+      @media (max-width: 600px) {
+        .skills-galaxy-box {
+          width: 98vw !important;
+          height: 340px !important;
+          border-radius: 24px !important;
+          padding: 0 !important;
+        }
+        #skills3d {
+          width: 98vw !important;
+          height: 320px !important;
+          min-width: 0 !important;
+          max-width: 100vw !important;
+          border-radius: 18px !important;
+        }
+        .skills h2 {
+          font-size: 1.3rem !important;
+          margin-bottom: 18px !important;
+        }
+      }
     </style>
   <meta charset="UTF-8">
   <title>Rashmi Ranjan Sahu | Portfolio</title>
@@ -82,16 +130,17 @@
     }
 
     .error-icon { font-size: 3rem; margin-bottom: 15px; }
-    .error-box h2 { font-size: 1.2rem; margin-bottom: 10px; color: #00f7ff; }
-    .error-box p { font-size: 0.9rem; margin: 5px 0; }
-    .error-box .small { color: #00f7ff; font-size: 0.8rem; }
+  .error-box h2 { font-size: 2.2rem; margin-bottom: 18px; color: #00f7ff; }
+  .error-box p { font-size: 1.5rem; margin: 8px 0; }
+  .error-box .small { color: #00f7ff; font-size: 1.3rem; }
     .error-box button {
-      margin-top: 20px;
-      padding: 8px 16px;
+      margin-top: 24px;
+      padding: 14px 38px;
       background: #00f7ff;
       border: none; color: black;
       font-weight: bold;
-      border-radius: 4px;
+      border-radius: 8px;
+      font-size: 1.4rem;
       cursor: pointer;
     }
     #countdown { margin-top: 20px; font-size: 1.5rem; color: #00f7ff; }
@@ -267,7 +316,6 @@
       </p>
       <button onclick="window.open('Resume_One Page.pdf')">Download Resume</button>
     </section>
-
   
     <!-- 3D background for rest of page -->
     <div id="rest3d"></div>
@@ -292,9 +340,9 @@
     <!-- Skills Section with 3D Galaxy Curved Rectangular Background -->
 
     <section class="skills" id="skills" style="width:100vw; height:650px; position:relative; z-index:2; display:flex; justify-content:center; align-items:center;">
-  <div style="width:70vw; height:600px; border-radius:48px; background:black; box-shadow:0 0 80px #00f7ff55, 0 0 120px #1a1a2e inset; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+  <div class="skills-galaxy-box" style="width:70vw; height:600px; border-radius:48px; background:black; box-shadow:0 0 80px #00f7ff55, 0 0 120px #1a1a2e inset; position:relative; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center;">
         <h2 style="color:#00f7ff; font-size:2.2rem; margin-top:1rem; margin-bottom:30px; text-align:center; text-shadow:0 0 18px #00f7ff;">Tools & Technologies</h2>
-        <div id="skills3d" style="width:100vw; max-width:1100px; height:500px; margin:auto; border-radius:32px; position:relative; z-index:2;"></div>
+  <div id="skills3d" style="width:100vw; max-width:1100px; height:500px; margin:auto; border-radius:32px; position:relative; z-index:2;"></div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
         <script>
           // Scene setup
@@ -311,9 +359,19 @@
             scene2.add(star);
           }
 
-          const camera2 = new THREE.PerspectiveCamera(75, window.innerWidth/1100, 0.1, 1000);
+          function getSkills3dSize() {
+            if (window.innerWidth < 600) {
+              return { w: window.innerWidth * 0.95, h: 320 };
+            } else if (window.innerWidth < 900) {
+              return { w: window.innerWidth * 0.85, h: 420 };
+            } else {
+              return { w: Math.min(window.innerWidth, 1100), h: 500 };
+            }
+          }
+          const size2 = getSkills3dSize();
+          const camera2 = new THREE.PerspectiveCamera(75, size2.w/size2.h, 0.1, 1000);
           const renderer2 = new THREE.WebGLRenderer({antialias:true, alpha:true});
-          renderer2.setSize(Math.min(window.innerWidth, 1100), 500);
+          renderer2.setSize(size2.w, size2.h);
           document.getElementById('skills3d').appendChild(renderer2.domElement);
 
           // Skill icon URLs
@@ -330,9 +388,10 @@
             "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/web3/web3-original.svg"
           ];
 
-          // Arrange icons in a sphere
+          // Arrange icons in a sphere and add to a group for rotation
           const iconSprites2 = [];
           const radius2 = 2.2;
+          const iconsGroup = new THREE.Group();
           for (let i = 0; i < skillIcons2.length; i++) {
             const texture = new THREE.TextureLoader().load(skillIcons2[i]);
             const material = new THREE.SpriteMaterial({ map: texture });
@@ -346,9 +405,10 @@
               radius2 * Math.sin(theta) * Math.sin(phi),
               radius2 * Math.cos(phi)
             );
-            scene2.add(sprite);
+            iconsGroup.add(sprite);
             iconSprites2.push(sprite);
           }
+          scene2.add(iconsGroup);
 
           camera2.position.z = 5;
 
@@ -384,16 +444,17 @@
           function animate2() {
             requestAnimationFrame(animate2);
             if (!isDragging2) rotationY2 += autoRotateY2; // auto-rotation when not dragging
-            scene2.rotation.y = rotationY2;
-            scene2.rotation.x = rotationX2;
+            iconsGroup.rotation.y = rotationY2;
+            iconsGroup.rotation.x = rotationX2;
             renderer2.render(scene2, camera2);
           }
           animate2();
 
           window.addEventListener("resize", () => {
-            camera2.aspect = Math.min(window.innerWidth, 1100) / 500;
+            const newSize = getSkills3dSize();
+            camera2.aspect = newSize.w / newSize.h;
             camera2.updateProjectionMatrix();
-            renderer2.setSize(Math.min(window.innerWidth, 1100), 500);
+            renderer2.setSize(newSize.w, newSize.h);
           });
         </script>
       </div>
